@@ -35,9 +35,9 @@ $$
     - $h$ is the system’s prediction function, also called `hypothesis`.
         - When the prediction function receives feature vector $x^{(i)}$ as input it outputs the predicted value $\hat{y}^{(i)}$
         
-        $$
-        \hat{y}^{(i)} = h(x^{(i)})
-        $$
+$$
+    \hat{y}^{(i)} = h(x^{(i)})
+$$
 
 ## Data
 
