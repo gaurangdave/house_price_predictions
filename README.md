@@ -1,7 +1,46 @@
 
 # House Price Prediction
 
-A simple Machine Learning application to predict house prices. 
+## Problem Statement
+
+- Use California census data to build a model of housing prices in the state.
+- This data includes metrics such as the population, median income, and median housing price for each block group in California.
+- Block groups are the smallest geographical unit for which the US Census Bureau publishes sample data (a block group typically has a population of 600 to 3,000 people).
+- Currently district house prices are estimated manually by experts who gather the up-to-date information about to either get the median housing price or estimate it using complex rules.
+    - The current process is costly and time-consuming and estimates are off by more than 30%
+- We need a ML model to **predict the median housing price in any district, given all the other metrics.**
+- The model’s output will be fed to another ML system along with other signals to determine whether it is worth investing in a given area. 
+
+## Solution Details
+
+- The solution needs to predict the housing price so this is going to be a regression task and since we have labeled dataset, we can use supervised learning algorithms.
+    - Specifically its a `multiple regression problem` since we’ll use multiple features to make a prediction.
+    - And since target is a single value its going to be `univariate regression` problem.
+- We don’t expect the housing prices or the related matrices to change that often, so a `batch learning` approach should suffice.
+    - The data is small enough to fit in memory so plain batch learning should be fine.
+
+### Performance Measure
+
+- We are going to use the `Root mean square error (RMSE)` to measure the performance.
+- The mathematical formula for `RMSE` is
+
+$$
+RMSE(X,h) = \sqrt{{1 \over m} \sum_{i=1}^m(h(x^{(i)}) - y^{(i)})^2}
+$$
+
+- Here,
+    - $m$ is the number of instances in the dataset we are measuring `RMSE` on.
+    - $x^{(i)}$ is the vector of all the feature values of the $i^{th}$ instance in the dataset and $y^{(i)}$ is its label.
+    - $X$ is the matrix containing all the feature values (excluding the labels) of all the instances in the dataset.
+    - $h$ is the system’s prediction function, also called `hypothesis`.
+        - When the prediction function receives feature vector $x^{(i)}$ as input it outputs the predicted value $\hat{y}^{(i)}$
+        
+        $$
+        \hat{y}^{(i)} = h(x^{(i)})
+        $$
+
+## Data
+
 
 ## Tech Stack
 ![Environment](https://img.shields.io/badge/Environment-Linux_64-FCC624?logo=linux&style=for-the-badge)
