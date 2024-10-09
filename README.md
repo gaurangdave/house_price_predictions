@@ -77,6 +77,7 @@ conda install numpy pandas scikit-learn matplotlib seaborn plotly jupyter ipyker
 
 ```bash
 conda install -c conda-forge fastapi uvicorn -y
+conda install -c conda-forge python-kaleido
 ```
 
 ## API Reference
