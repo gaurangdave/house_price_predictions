@@ -10,6 +10,11 @@
 - We need a ML model to **predict the median housing price in any district, given all the other metrics.**
 - The model’s output will be fed to another ML system along with other signals to determine whether it is worth investing in a given area.
 
+### Dataset
+
+* The data is downloaded from [Remote Data Repo](https://github.com/ageron/data/raw/main/housing.tgz)
+* The data is stored in repo [Local Copy](https://github.com/gaurangdave/house_price_predictions/tree/main/data)
+
 ## Solution Details
 
 - The solution needs to predict the housing price so this is going to be a regression task and since we have labeled dataset, we can use supervised learning algorithms.
@@ -38,7 +43,22 @@ $$
     \hat{y}^{(i)} = h(x^{(i)})
 $$
 
-## Data
+### Data Transformation
+We need the following data transformations (in same order)
+* Fill in missing values
+* Convert `ocean_proximity` to one hot encoding
+* Feature Engineering `rooms_per_house`, `bedroom_ratio` and `people_per_house`
+* Add cluster similarity features
+* Drop Outliers
+* Transform heavy tailed features using logarithm
+* Scale all numeric features. 
+
+### Notebooks
+* [00_get_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/00_get_data.ipynb) to download the dataset and create local copy.
+* [01_explore_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/01_explore_data.ipynb) to create train/test set and data exploration.
+* [02_transform_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/02_transform_data.ipynb) for data transformation.
+
+
 
 ## Tech Stack
 
