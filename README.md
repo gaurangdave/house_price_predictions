@@ -57,6 +57,7 @@ We need the following data transformations (in same order)
 * [00_get_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/00_get_data.ipynb) to download the dataset and create local copy.
 * [01_explore_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/01_explore_data.ipynb) to create train/test set and data exploration.
 * [02_transform_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/02_transform_data.ipynb) for data transformation.
+* [03_training_evaluation.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/03_training_evaluation.ipynb) training and evaluation.
 
 
 
@@ -111,7 +112,7 @@ TBD
 
 ## 🚀 About Me
 
-I'm a full stack developer...
+A jack of all trades in software engineering, with 15 years of crafting full-stack solutions, scalable architectures, and pixel-perfect designs. Now expanding my horizons into AI/ML, blending experience with curiosity to build the future of tech—one model at a time.
 
 ## 🔗 Links
 
