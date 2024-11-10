@@ -98,6 +98,11 @@ conda install numpy pandas scikit-learn matplotlib seaborn plotly jupyter ipyker
 conda install -c conda-forge python-kaleido
 ```
 
+- Install GDown
+```bash
+conda install conda-forge::gdown
+```
+
 - Install FastAPI
 
 ```bash
