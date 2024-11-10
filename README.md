@@ -59,6 +59,8 @@ We need the following data transformations (in same order)
 * [02_transform_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/02_transform_data.ipynb) for data transformation.
 * [03_training_evaluation.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/03_training_evaluation.ipynb) training and evaluation.
 
+### Models
+* All the trained models are stored here in [Google Drive](https://drive.google.com/drive/folders/1_HihZZk7T5_InmIxBiKHxLoZVjr8YYXO)
 
 
 ## Tech Stack
