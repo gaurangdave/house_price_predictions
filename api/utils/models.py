@@ -1,4 +1,5 @@
 import gdown
+import json
 from pathlib import Path
 
 
@@ -17,11 +18,21 @@ def download_models():
         raise e
 
 
+def load_models():
+    # read data/models.json file
+    with open(Path('api', 'data', 'models.json'), 'r') as f:
+        model_mapping = f.read()
+
+    # convert the json string to a array
+    model_mapping = json.loads(model_mapping)
+    return model_mapping
+
+
 def get_model_mapping():
     # Placeholder for getting model mapping
-    model_path = str(Path('api', 'models'))
-    return [{
-            "id": "random_forest_model_v0_1",
-            "name": "Random Forest Regressor",
-            "path": f"{model_path}/random_forest_model_v0_1.joblib"
-            }]
+    model_mapping = load_models()
+
+    # filter out path attribute from model_mapping array
+    model_mapping = [{"id": model["id"], "name": model["name"]}
+                     for model in model_mapping]
+    return model_mapping

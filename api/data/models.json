@@ -1,0 +1,7 @@
+[
+  {
+    "id": "random_forest_model_v0_1",
+    "name": "Random Forest Regressor",
+    "path": "api/models/random_forest_model_v0_1.joblib"
+  }
+]
