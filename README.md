@@ -109,14 +109,29 @@ conda install conda-forge::gdown
 ```bash
 conda install -c conda-forge fastapi uvicorn -y
 ```
+## Usage/Examples
+* Run the following command to start the API server
+
+```bash
+uvicorn api.main:app --reload
+```
+
+* Go to the following URL to access API Docs
+```URL
+http://localhost:8000/docs
+```
 
 ## API Reference
 
-TBD
+| Action                                           | HTTP Method | Endpoint                                 |
+|--------------------------------------------------|-------------|------------------------------------------|
+| List available models                            | `GET`       | `/models`                                |
+| Get predictions using a certain model            | `POST`      | `/models/{model_id}/predict`             |
+| Get predictions from all models                  | `POST`      | `/models/predict_all`                    |
+| Get predictions with actual values for accuracy  | `POST`      | `/models/{model_id}/predict_with_actuals`|
+| Get predictions using custom input               | `POST`      | `/predict`                               |
 
-## Usage/Examples
 
-TBD
 
 ## 🚀 About Me
 
