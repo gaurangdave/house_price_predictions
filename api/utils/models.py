@@ -2,14 +2,7 @@ import gdown
 import json
 from pathlib import Path
 import joblib
-
-from api.utils.transformers import (
-    calculate_ratio,
-    feature_ratio_transformer,
-    MultimodalTransformer,
-    ClusterSimilarityTransformer,
-    heavy_tail_transformer
-)
+import pandas as pd
 
 
 def download_models():
@@ -41,6 +34,14 @@ def load_model(model_path):
     # load joblib model
     model = joblib.load(model_path, mmap_mode='r')
     return model
+
+
+def load_model_and_predict(model_path, data):
+    # load the model and make predictions
+    model = load_model(model_path)
+    df = pd.DataFrame(data, index=[0])
+    prediction = model.predict(df)
+    return {"prediction": prediction[0].round(2)}
 
 
 def get_model_path(model_id):

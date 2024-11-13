@@ -134,7 +134,6 @@ http://localhost:8000/docs
 | Get predictions using a certain model            | `POST`      | `/models/{model_id}/predict`             |
 | Get predictions from all models                  | `POST`      | `/models/predict_all`                    |
 | Get predictions with actual values for accuracy  | `POST`      | `/models/{model_id}/predict_with_actuals`|
-| Get predictions using custom input               | `POST`      | `/predict`                               |
 
 
 

@@ -1,20 +1,9 @@
-from api.utils.transformers import (
-    calculate_ratio,
-    feature_ratio_transformer,
-    MultimodalTransformer,
-    ClusterSimilarityTransformer,
-    heavy_tail_transformer
-)
 from fastapi import FastAPI, HTTPException
 from api.schemas.housing_data import HousingData
 from api.utils import models
 import pandas as pd
 import os
 import sys
-# Add the project root to Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# import preprocessing utilities
 
 
 app = FastAPI(title="House Price Predictions API", version="0.1",
@@ -33,22 +22,20 @@ def read_root():
 
 @app.get("/models")
 def get_models():
-    # Placeholder for getting model mapping
     return models.get_model_mapping()
 
 
 @app.post("/models/{model_id}/predict")
 def predict_price(model_id: str, data: HousingData):
-    # Placeholder for prediction logic
     model_path = models.get_model_path(model_id)
     if model_path:
         # load the model and make predictions
         print(f"Making predictions using model: {model_id}")
         # TODO loading the model everytime might be inefficient
-        model = models.load_model(model_path)
-        df = pd.DataFrame(data.model_dump(), index=[0])
-        prediction = model.predict(df)
-        return {"prediction": prediction[0].round(2)}
+        prediction = models.load_model_and_predict(
+            model_path, data.model_dump())
+        prediction["model_id"] = model_id
+        return prediction
     else:
         # return 404 if model_id is not found
         raise HTTPException(status_code=404, detail=f"Model with id {
@@ -56,21 +43,41 @@ def predict_price(model_id: str, data: HousingData):
 
 
 @app.post("/models/predict_all")
-def predict_all():
-    # Placeholder for prediction logic
-    return [{
-            "model_id": "random_forest_model_v0_1",
-            "prediction": "This will be the house price prediction"
-            }]
+def predict_all(data: HousingData):
+    # load model mapping
+    model_mapping = models.load_model_mapping()
+    response = []
+    # load all models and make predictions
+    for model in model_mapping:
+        model_id = model["id"]
+        model_path = model["path"]
+        print(f"Making predictions using model: {model_id}")
+        prediction = models.load_model_and_predict(
+            model_path, data.model_dump())
+        prediction["model_id"] = model_id
+        response.append(prediction)
+    return response
 
 
 @app.post("/models/{model_id}/predict_with_actuals")
 def predict_with_actuals(model_id: str):
-    # Placeholder for prediction logic
-    return {"prediction": "This will be the house price prediction"}
-
-
-@app.post("/predict")
-def predict_price():
-    # Placeholder for prediction logic
-    return {"prediction": "This will be the house price prediction"}
+    model_path = models.get_model_path(model_id)
+    if model_path:
+        # load dataset
+        df = pd.read_csv("data/processed/housing/test_set.csv")
+        # select random row from the dataset
+        input = df.sample(1)
+        # split the input into features and target
+        features = input.drop("median_house_value", axis=1)
+        labels = input["median_house_value"].copy()
+        # load the model and make predictions
+        print(f"Making predictions using model: {model_id}")
+        # TODO loading the model everytime might be inefficient
+        prediction = models.load_model_and_predict(model_path, features)
+        prediction["model_id"] = model_id
+        prediction["actual"] = labels.values[0]
+        return prediction
+    else:
+        # return 404 if model_id is not found
+        raise HTTPException(status_code=404, detail=f"Model with id {
+                            model_id} not found")
