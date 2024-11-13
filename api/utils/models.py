@@ -3,12 +3,13 @@ import json
 from pathlib import Path
 import joblib
 
-from api.utils.preprocessing import calculate_ratio
-# from api.utils.preprocessing import calculate_ratio
-
-
-def calculate_ratio(df):
-    pass
+from api.utils.transformers import (
+    calculate_ratio,
+    feature_ratio_transformer,
+    MultimodalTransformer,
+    ClusterSimilarityTransformer,
+    heavy_tail_transformer
+)
 
 
 def download_models():

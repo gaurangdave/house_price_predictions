@@ -104,6 +104,11 @@ conda install -c conda-forge python-kaleido
 conda install conda-forge::gdown
 ```
 
+- Install DotEnv
+```bash
+conda install conda-forge::python-dotenv
+```
+
 - Install FastAPI
 
 ```bash

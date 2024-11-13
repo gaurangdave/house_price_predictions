@@ -1,9 +1,21 @@
+from api.utils.transformers import (
+    calculate_ratio,
+    feature_ratio_transformer,
+    MultimodalTransformer,
+    ClusterSimilarityTransformer,
+    heavy_tail_transformer
+)
 from fastapi import FastAPI, HTTPException
 from api.schemas.housing_data import HousingData
 from api.utils import models
 import pandas as pd
+import os
+import sys
+# Add the project root to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # import preprocessing utilities
-from api.utils import preprocessing
+
 
 app = FastAPI(title="House Price Predictions API", version="0.1",
               description="An API to make house price predictions")
@@ -31,12 +43,12 @@ def predict_price(model_id: str, data: HousingData):
     model_path = models.get_model_path(model_id)
     if model_path:
         # load the model and make predictions
-        print(f"Making predictions using model: {model_id} and data: {data}")
+        print(f"Making predictions using model: {model_id}")
+        # TODO loading the model everytime might be inefficient
         model = models.load_model(model_path)
         df = pd.DataFrame(data.model_dump(), index=[0])
-        print(f"Dataframe: {df}")
-        # prediction = model.predict(df)
-        return {"prediction": "prediction"}
+        prediction = model.predict(df)
+        return {"prediction": prediction[0].round(2)}
     else:
         # return 404 if model_id is not found
         raise HTTPException(status_code=404, detail=f"Model with id {
