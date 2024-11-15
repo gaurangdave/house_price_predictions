@@ -1,6 +1,9 @@
 # House Price Prediction
+This project is a learning endeavor aimed at building a machine learning model to predict housing prices in California using census data. Guided by examples and techniques from the book `Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow`, this project explores essential steps in the ML pipeline—from data preprocessing and feature engineering to model training and evaluation.
 
-## Problem Statement
+The primary objective is to replace the current manual and costly estimation process, which is prone to errors, with an automated and accurate model. By developing a regression model, this project demonstrates how ML can streamline and enhance real-world tasks, providing insights and automation that are both scalable and cost-effective.
+
+## Project Goal
 
 - Use California census data to build a model of housing prices in the state.
 - This data includes metrics such as the population, median income, and median housing price for each block group in California.
@@ -10,10 +13,6 @@
 - We need a ML model to **predict the median housing price in any district, given all the other metrics.**
 - The model’s output will be fed to another ML system along with other signals to determine whether it is worth investing in a given area.
 
-### Dataset
-
-* The data is downloaded from [Remote Data Repo](https://github.com/ageron/data/raw/main/housing.tgz)
-* The data is stored in repo [Local Copy](https://github.com/gaurangdave/house_price_predictions/tree/main/data)
 
 ## Solution Details
 
@@ -53,6 +52,12 @@ We need the following data transformations (in same order)
 * Transform heavy tailed features using logarithm
 * Scale all numeric features. 
 
+### Dataset
+
+* The data is downloaded from [Remote Data Repo](https://github.com/ageron/data/raw/main/housing.tgz)
+* The data is stored in repo [Local Copy](https://github.com/gaurangdave/house_price_predictions/tree/main/data)
+
+
 ### Notebooks
 * [00_get_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/00_get_data.ipynb) to download the dataset and create local copy.
 * [01_explore_data.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/01_explore_data.ipynb) to create train/test set and data exploration.
@@ -62,6 +67,7 @@ We need the following data transformations (in same order)
 
 ### Models
 * All the trained models are stored here in [Google Drive](https://drive.google.com/drive/folders/1_HihZZk7T5_InmIxBiKHxLoZVjr8YYXO)
+* The models can be downloaded either manually thru Google Drive web interface, or by running [04_download_models.ipynb](https://github.com/gaurangdave/house_price_predictions/blob/main/notebooks/04_download_models.ipynb) notebook. 
 
 
 ## Tech Stack
@@ -114,7 +120,7 @@ conda install conda-forge::python-dotenv
 ```bash
 conda install -c conda-forge fastapi uvicorn -y
 ```
-## Usage/Examples
+## Running the API
 * Run the following command to start the API server
 
 ```bash
@@ -130,12 +136,31 @@ http://localhost:8000/docs
 
 | Action                                           | HTTP Method | Endpoint                                 |
 |--------------------------------------------------|-------------|------------------------------------------|
-| List available models                            | `GET`       | `/models`                                |
-| Get predictions using a certain model            | `POST`      | `/models/{model_id}/predict`             |
-| Get predictions from all models                  | `POST`      | `/models/predict_all`                    |
-| Get predictions with actual values for accuracy  | `POST`      | `/models/{model_id}/predict_with_actuals`|
+| List available models                            | **`GET`**       | `/models`                                |
+| Get predictions using a certain model            | **`POST`**      | `/models/{model_id}/predict`             |
+| Get predictions from all models                  | **`POST`**      | `/models/predict_all`                    |
+| Get predictions with actual values for accuracy  | **`POST`**      | `/models/{model_id}/predict_with_actuals`|
+
+## Visualizations
+![Actual Values vs Predictions](https://github.com/gaurangdave/house_price_predictions/blob/8f1dbec1293f2403db4c9cc221b332662a082970/reports/figures/final_predictions_vs_actual_values.png?raw=true "A visualization showing performance of ML model on test data")
 
 
+## Project Insights
+* The final model achieved a **Relative RMSE of 19.85%**, which is a significant improvement over the current manual process, where estimates deviate by more than **30%**.
+* This represents an approximate **33% improvement** in prediction accuracy compared to the manual approach.
+* The scatter plot of predictions vs. actual values shows an overall **linear relationship**, indicating that the model is reasonably accurate in predicting housing prices.
+For **low to mid-range prices (under 300K)**, predictions align closely with actual values.However, as prices increase, there is a tendency for predictions to fall below the ideal line, suggesting that the model struggles with higher price ranges.
+* The concentration of points near the **500K mark** reflects the upper cap in the dataset, which likely limits the model’s ability to predict higher values accurately.
+
+### Next Steps
+* Explore **feature engineering** to add new features that may correlate with higher housing prices, potentially improving performance for higher price ranges.
+* Experiment with **more complex models** (e.g., gradient boosting or neural networks) to capture nonlinear relationships that the current model might be missing.
+
+## Lessons Learnt
+* Gained experience in **identifying data distributions** and applying appropriate preprocessing techniques for machine learning training.
+* Learned about **cluster similarity** and methods for measuring similarity between different feature types.
+* Developed skills in creating **preprocessing pipelines** using scikit-learn’s Pipeline and custom transformers.
+* Built knowledge on how to **deploy trained models as APIs** using FastAPI, allowing for seamless integration of predictions into applications.
 
 ## 🚀 About Me
 
@@ -148,4 +173,4 @@ A jack of all trades in software engineering, with 15 years of crafting full-sta
 
 ## 🛠 Skills
 
-Python, Jupyter Notebook,
+`Python`, `Jupyter Notebook`, `scikit-learn`, `FastAPI`, `Plotly`, `Conda`
